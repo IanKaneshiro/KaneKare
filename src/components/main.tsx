@@ -1,9 +1,8 @@
 "use client";
+import { useState } from "react";
 
 import { Shift, User } from "@/Types/types";
 import { startShift } from "@/utils/recordTimePuch";
-
-const shifts: Shift[] = [];
 
 const testUser: User = {
   id: 1,
@@ -13,13 +12,22 @@ const testUser: User = {
   isClockedIn: false,
 };
 
-const createShift = () => {
-  const shift = startShift(testUser);
-  shifts.push(shift);
-  console.log(shifts);
-};
-
 const Main = () => {
+  const [shifts, setShifts] = useState<Shift[]>([]);
+  const [currentShift, setCurrentShift] = useState<null | number>(null);
+
+  const createShift = () => {
+    const shift = startShift(testUser);
+    if (!currentShift) {
+      setCurrentShift(shift.id);
+      setShifts((prev) => [...prev, shift]);
+    } else {
+      const idx = shifts.findIndex((s) => s.id === currentShift);
+      shifts[idx].timeOut = new Date().toUTCString();
+      setCurrentShift(null);
+    }
+  };
+
   return (
     <div>
       <button onClick={createShift}>
@@ -27,7 +35,7 @@ const Main = () => {
       </button>
       <div>
         {shifts.map((s) => (
-          <div>
+          <div key={s.id}>
             <p>{s.id}</p>
             <p>{s.userId}</p>
             <p>{s.timeIn}</p>
