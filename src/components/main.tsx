@@ -1,33 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Shift, User } from "@/Types/types";
+import { startShift } from "@/utils/recordTimePuch";
 
-let isPunchedIn = false;
+const shifts: Shift[] = [];
+
+const testUser: User = {
+  id: 1,
+  name: "Ian",
+  password: "test123",
+  isAdmin: true,
+  isClockedIn: false,
+};
+
+const createShift = () => {
+  const shift = startShift(testUser);
+  shifts.push(shift);
+  console.log(shifts);
+};
+
 const Main = () => {
-  const [timePunches, setTimePunches]: any = useState([]);
-
-  function clockIn(userId: number) {
-    const timePunch: any = {
-      userId: 1,
-      time: new Date().toISOString(),
-      inPunch: isPunchedIn,
-    };
-    console.log(timePunch);
-    isPunchedIn = !isPunchedIn;
-    setTimePunches((prev: any) => [...prev, timePunch]);
-  }
-
   return (
     <div>
-      <button onClick={() => clockIn(1)}>
-        {isPunchedIn ? "Clock out" : "Clock in"}
+      <button onClick={createShift}>
+        {testUser.isClockedIn ? "Clock out" : "Clock in"}
       </button>
       <div>
-        {timePunches.map((timePunch: any) => (
-          <div key={timePunch.id}>
-            <p>{timePunch.userid}</p>
-            <p>{timePunch.time}</p>
-            <p>{timePunch.inPunch ? "In" : "Out"}</p>
+        {shifts.map((s) => (
+          <div>
+            <p>{s.id}</p>
+            <p>{s.userId}</p>
+            <p>{s.timeIn}</p>
+            <p>{s.timeOut}</p>
           </div>
         ))}
       </div>
