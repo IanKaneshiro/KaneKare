@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-import { Shift, User } from "@/Types/types";
+import { Shift, User } from "@/types/types";
 import { startShift } from "@/utils/recordTimePuch";
 
 const testUser: User = {

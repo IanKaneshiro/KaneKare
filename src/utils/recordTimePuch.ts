@@ -1,4 +1,4 @@
-import { User, Shift } from "@/Types/types";
+import { User, Shift } from "@/types/types";
 
 let index = 1;
 export const startShift = (user: User) => {
