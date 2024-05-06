@@ -17,7 +17,12 @@ Some things I would like to see in the calendar:
 import Calendar from "react-calendar";
 
 const Schedule = () => {
-  return <p>Calendariooo</p>;
+  return (
+    <div>
+      <p>Calendariooo</p>
+      <Calendar />
+    </div>
+  );
 };
 
 export default Schedule;
