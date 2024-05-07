@@ -14,13 +14,20 @@ Some things I would like to see in the calendar:
 */
 
 //npm install react-calendar
+import React, { useState } from "react";
 import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 const Schedule = () => {
   return (
     <div>
-      <p>Calendariooo</p>
-      <Calendar />
+      <Calendar calendarType="gregory" />
+      <div>
+        <p>
+          • Need user. If userId for shift === null, something needs to signal
+          that there is an uncovered shift
+        </p>
+      </div>
     </div>
   );
 };
