@@ -9,6 +9,8 @@ import {
 } from "@clerk/nextjs";
 import "./globals.css";
 
+import connectDB from "@/lib/connectDB";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,11 +18,12 @@ export const metadata: Metadata = {
   description: "Manage your way!",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await connectDB();
   return (
     <ClerkProvider>
       <html lang="en">
