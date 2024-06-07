@@ -7,8 +7,8 @@ export type User = {
 };
 
 export type Shift = {
-  id: number;
-  userId: number;
-  timeIn: string;
-  timeOut: string | null;
+  userId: string;
+  startTime: string;
+  endTime: string | null;
+  createdAt: string;
 };
