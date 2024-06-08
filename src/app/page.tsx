@@ -1,6 +1,6 @@
 "use client";
 
-import { timePunch } from "@//actions";
+import { timePunch } from "@/actions";
 
 export default function Home() {
   return (
@@ -9,8 +9,7 @@ export default function Home() {
       <div>
         <h2>Clock in</h2>
         <div>
-          <button onClick={timePunch}>Clock in</button>
-          <button>Clock out</button>
+          <button onClick={async () => await timePunch()}>Record Punch</button>
         </div>
       </div>
     </main>

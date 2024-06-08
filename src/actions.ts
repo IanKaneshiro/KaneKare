@@ -6,9 +6,9 @@ import ShiftModel from "@/models/Shift";
 export async function clockIn(userId: string) {
   const shift = new ShiftModel({
     userId,
-    startTime: Date.now(),
+    startTime: new Date(),
     endTime: null,
-    createdAt: Date.now(),
+    createdAt: new Date(),
   });
   try {
     await shift.save();

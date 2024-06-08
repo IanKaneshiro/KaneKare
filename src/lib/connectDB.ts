@@ -16,7 +16,7 @@ const connectDB = async () => {
 
   try {
     mongoose.connect(MONGODB_URI, {
-      dbName: "restapinext14",
+      dbName: "kankare",
       bufferCommands: false,
     });
   } catch (e) {
