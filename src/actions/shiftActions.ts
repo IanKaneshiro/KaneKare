@@ -37,6 +37,7 @@ export async function timePunch() {
   }
   try {
     const data = await ShiftModel.findOne({ userId, endTime: null });
+
     if (data) {
       // clock out
       return await clockOut(data);

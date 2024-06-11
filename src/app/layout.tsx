@@ -9,6 +9,8 @@ import {
 } from "@clerk/nextjs";
 import "./globals.css";
 
+import { Toaster } from "@/components/ui/toaster";
+
 import connectDB from "@/lib/connectDB";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,6 +30,7 @@ export default async function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
+          <Toaster />
           <header>
             <SignedOut>
               <SignInButton />
@@ -36,6 +39,7 @@ export default async function RootLayout({
               <UserButton />
             </SignedIn>
           </header>
+
           <main>{children}</main>
         </body>
       </html>
