@@ -15,9 +15,10 @@ import { timePunch } from "@/actions/shiftActions";
 
 const DialogComponent = () => {
   const { toast } = useToast();
+
   return (
     <Dialog>
-      <DialogTrigger>Record Punch</DialogTrigger>
+      <DialogTrigger>{true ? "Clock Out" : "Clock In"}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
@@ -26,10 +27,12 @@ const DialogComponent = () => {
           <Button
             variant="destructive"
             onClick={async () => {
-              await timePunch();
+              let isClockedIn = await timePunch();
               toast({
                 title: "Success",
-                description: `You recorded a punch at ${Date.now()}`,
+                description: isClockedIn
+                  ? "Successfully clocked out"
+                  : "Succesfully clocked in",
               });
             }}
           >

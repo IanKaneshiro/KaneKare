@@ -43,6 +43,7 @@ export async function timePunch() {
       return await clockOut(data);
     } else {
       // clock in
+
       return await clockIn(userId);
     }
   } catch (e) {
