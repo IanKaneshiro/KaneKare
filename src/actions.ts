@@ -49,3 +49,8 @@ export async function timePunch() {
     return "Error during time punch";
   }
 }
+
+//admin
+export async function getUsers() {
+  //todo-- get list of users. need user model
+}
