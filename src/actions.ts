@@ -2,6 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import ShiftModel from "@/models/Shift";
+import UserModel from "@/models/User";
 
 export async function clockIn(userId: string) {
   const shift = new ShiftModel({
@@ -52,5 +53,17 @@ export async function timePunch() {
 
 //admin
 export async function getUsers() {
-  //todo-- get list of users. need user model
+  //todo  get list of users. need user model
+}
+
+export async function createUser() {
+  //todo  create new user
+}
+
+export async function editUser() {
+  //todo edit current user
+}
+
+export async function deleteUser() {
+  //todo removes a user
 }
