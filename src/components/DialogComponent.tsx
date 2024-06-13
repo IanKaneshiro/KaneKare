@@ -7,6 +7,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import { ToastMessage } from "@/types/types";
+
 import { useToast } from "./ui/use-toast";
 
 import { Button } from "./ui/button";
@@ -18,7 +20,9 @@ const DialogComponent = () => {
 
   return (
     <Dialog>
-      <DialogTrigger>{true ? "Clock Out" : "Clock In"}</DialogTrigger>
+      <DialogTrigger>
+        <Button variant="destructive">{true ? "Clock Out" : "Clock In"}</Button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
@@ -27,13 +31,8 @@ const DialogComponent = () => {
           <Button
             variant="destructive"
             onClick={async () => {
-              let isClockedIn = await timePunch();
-              toast({
-                title: "Success",
-                description: isClockedIn
-                  ? "Successfully clocked out"
-                  : "Succesfully clocked in",
-              });
+              let timePunchMessage: ToastMessage = await timePunch();
+              toast(timePunchMessage);
             }}
           >
             <DialogTrigger>Yes</DialogTrigger>

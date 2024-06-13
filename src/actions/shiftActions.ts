@@ -33,21 +33,25 @@ export async function clockOut(shift: any) {
 export async function timePunch() {
   const { userId } = auth();
   if (!userId) {
-    return "No user logged in";
+    return { title: "Error", description: "No user logged in" };
   }
   try {
     const data = await ShiftModel.findOne({ userId, endTime: null });
 
     if (data) {
       // clock out
-      return await clockOut(data);
+      await clockOut(data);
     } else {
       // clock in
 
-      return await clockIn(userId);
+      await clockIn(userId);
+      return { title: "Success", description: "Successfully recorded punch" };
     }
   } catch (e) {
     console.error("Error during time punch:", e);
-    return "Error during time punch";
+    return {
+      title: "Error",
+      description: "An error occured while trying to record punch",
+    };
   }
 }
