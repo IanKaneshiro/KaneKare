@@ -1,16 +1,23 @@
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 const NavBar = () => {
   return (
     <ul className="bg-red-300 h-11 flex justify-around items-center">
       <li>
-        <Button variant="outline">Home</Button>
+        <Link href="/">
+          <Button variant="outline">Home</Button>
+        </Link>
       </li>
       <li>
-        <Button variant="outline">About</Button>
+        <Link href="/about">
+          <Button variant="outline">About</Button>
+        </Link>
       </li>
       <li>
-        <Button variant="outline">Schedule</Button>
+        <Link href="/schedule">
+          <Button variant="outline">Schedule</Button>
+        </Link>
       </li>
     </ul>
   );
