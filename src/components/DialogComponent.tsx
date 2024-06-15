@@ -15,13 +15,15 @@ import { Button } from "./ui/button";
 
 import { timePunch } from "@/actions/shiftActions";
 
+import ClockInButton from "./ClockInButton";
+
 const DialogComponent = () => {
   const { toast } = useToast();
 
   return (
     <Dialog>
       <DialogTrigger>
-        <Button variant="destructive">{true ? "Clock Out" : "Clock In"}</Button>
+        <ClockInButton />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

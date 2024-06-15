@@ -2,6 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import ShiftModel from "@/models/Shift";
+import { clerkClient } from "@clerk/nextjs/server";
 
 export async function clockIn(userId: string) {
   const shift = new ShiftModel({
@@ -41,10 +42,16 @@ export async function timePunch() {
     if (data) {
       // clock out
       await clockOut(data);
+      await clerkClient.users.updateUserMetadata(userId, {
+        unsafeMetadata: { isClockedIn: false },
+      });
+      return { title: "Success", description: "Successfully recorded punch" };
     } else {
       // clock in
-
       await clockIn(userId);
+      await clerkClient.users.updateUserMetadata(userId, {
+        unsafeMetadata: { isClockedIn: true },
+      });
       return { title: "Success", description: "Successfully recorded punch" };
     }
   } catch (e) {
