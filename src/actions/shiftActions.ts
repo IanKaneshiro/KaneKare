@@ -16,6 +16,7 @@ export async function clockIn(userId: string) {
     await clerkClient.users.updateUserMetadata(userId, {
       publicMetadata: { isClockedIn: true },
     });
+
     return "Success!";
   } catch (e) {
     console.error("Error clocking in:", e);
@@ -30,6 +31,7 @@ export async function clockOut(shift: any) {
     await clerkClient.users.updateUserMetadata(shift.userId, {
       publicMetadata: { isClockedIn: false },
     });
+
     return "Success!";
   } catch (e) {
     console.error("Error clocking out:", e);

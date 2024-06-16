@@ -1,5 +1,6 @@
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const NavBar = () => {
   return (
@@ -18,6 +19,14 @@ const NavBar = () => {
         <Link href="/schedule">
           <Button variant="outline">Schedule</Button>
         </Link>
+      </li>
+      <li>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </li>
     </ul>
   );

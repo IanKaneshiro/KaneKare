@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dialog";
 
 import { useState, useEffect } from "react";
-import { ToastMessage } from "@/types/types";
 import { useToast } from "./ui/use-toast";
 import { Button } from "./ui/button";
 import { timePunch } from "@/actions/shiftActions";
@@ -18,14 +17,19 @@ import { useUser } from "@clerk/nextjs";
 
 const DialogComponent = () => {
   const { toast } = useToast();
+
   const { user } = useUser();
 
   const [isClockedIn, setIsClockedIn] = useState<boolean | undefined>(
-    undefined
+    sessionStorage.getItem("isClockedIn") === "true" || undefined
   );
 
   useEffect(() => {
-    if (user?.publicMetadata.isClockedIn !== undefined) {
+    const savedState = sessionStorage.getItem("isClockedIn");
+    if (savedState !== null) {
+      console.log(isClockedIn);
+      setIsClockedIn(savedState === "true");
+    } else if (user?.publicMetadata.isClockedIn !== undefined) {
       setIsClockedIn(user.publicMetadata.isClockedIn);
     }
   }, [user]);
@@ -34,7 +38,7 @@ const DialogComponent = () => {
     const { timePunchMessage, shiftStatus } = await timePunch();
     toast(timePunchMessage);
     setIsClockedIn(shiftStatus);
-    console.log(`time punch logged, state is ${isClockedIn}`);
+    sessionStorage.setItem("isClockedIn", `${shiftStatus}`);
   };
 
   if (user === undefined) {
@@ -51,7 +55,7 @@ const DialogComponent = () => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            Are you want to {isClockedIn ? "end" : "start"} your shift?
+            Are you sure you want to {isClockedIn ? "end" : "start"} your shift?
           </DialogTitle>
         </DialogHeader>
         <DialogFooter>
