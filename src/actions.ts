@@ -58,6 +58,9 @@ export async function getUsers() {
 
 export async function createUser() {
   //todo  create new user
+  const user = new UserModel({
+    //dig more into how to create with mongodb
+  });
 }
 
 export async function editUser() {
