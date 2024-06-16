@@ -1,8 +1,6 @@
-"use client";
-
-import LiveClock from "@/components/LiveClock";
 import NavBar from "@/components/NavBar";
 import DialogComponent from "@/components/DialogComponent";
+import LiveClock from "@/components/LiveClock";
 
 export default function Home() {
   return (

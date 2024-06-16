@@ -13,6 +13,9 @@ export async function clockIn(userId: string) {
   });
   try {
     await shift.save();
+    await clerkClient.users.updateUserMetadata(userId, {
+      publicMetadata: { isClockedIn: true },
+    });
     return "Success!";
   } catch (e) {
     console.error("Error clocking in:", e);
@@ -24,6 +27,9 @@ export async function clockOut(shift: any) {
   shift.endTime = new Date();
   try {
     await shift.save();
+    await clerkClient.users.updateUserMetadata(shift.userId, {
+      publicMetadata: { isClockedIn: false },
+    });
     return "Success!";
   } catch (e) {
     console.error("Error clocking out:", e);
@@ -42,17 +48,23 @@ export async function timePunch() {
     if (data) {
       // clock out
       await clockOut(data);
-      await clerkClient.users.updateUserMetadata(userId, {
-        unsafeMetadata: { isClockedIn: false },
-      });
-      return { title: "Success", description: "Successfully recorded punch" };
+      return {
+        timePunchMessage: {
+          title: "Successfuly Ended Shift",
+          description: `Time in: ${data.startTime}. Time out: ${data.endTime}`,
+        },
+        shiftStatus: false,
+      };
     } else {
       // clock in
       await clockIn(userId);
-      await clerkClient.users.updateUserMetadata(userId, {
-        unsafeMetadata: { isClockedIn: true },
-      });
-      return { title: "Success", description: "Successfully recorded punch" };
+      return {
+        timePunchMessage: {
+          title: "Success Started Shift",
+          description: `Time In: ${new Date()}`,
+        },
+        shiftStatus: true,
+      };
     }
   } catch (e) {
     console.error("Error during time punch:", e);

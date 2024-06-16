@@ -1,3 +1,4 @@
+"use client";
 import Clock from "react-live-clock";
 
 export default function LiveClock() {

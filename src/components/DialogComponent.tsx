@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Dialog,
   DialogContent,
@@ -8,48 +10,49 @@ import {
 } from "@/components/ui/dialog";
 
 import { useState, useEffect } from "react";
-
 import { ToastMessage } from "@/types/types";
-
 import { useToast } from "./ui/use-toast";
-
 import { Button } from "./ui/button";
-
 import { timePunch } from "@/actions/shiftActions";
-
 import { useUser } from "@clerk/nextjs";
 
 const DialogComponent = () => {
   const { toast } = useToast();
-
   const { user } = useUser();
 
-  const [isClockedIn, setIsClockedIn] = useState<boolean | {} | null>(false);
+  const [isClockedIn, setIsClockedIn] = useState<boolean | undefined>(
+    undefined
+  );
 
   useEffect(() => {
-    if (user?.unsafeMetadata.isClockedIn !== undefined) {
-      setIsClockedIn(user.unsafeMetadata.isClockedIn);
+    if (user?.publicMetadata.isClockedIn !== undefined) {
+      setIsClockedIn(user.publicMetadata.isClockedIn);
     }
   }, [user]);
 
   const handleTimePunch = async () => {
-    const timePunchMessage: ToastMessage = await timePunch();
+    const { timePunchMessage, shiftStatus } = await timePunch();
     toast(timePunchMessage);
-    if (isClockedIn !== undefined) {
-      setIsClockedIn(!isClockedIn);
-    }
+    setIsClockedIn(shiftStatus);
+    console.log(`time punch logged, state is ${isClockedIn}`);
   };
+
+  if (user === undefined) {
+    return null;
+  }
 
   return (
     <Dialog>
       <DialogTrigger>
         <Button variant="destructive">
-          {isClockedIn ? "Clock Out" : "Clock In"}
+          {isClockedIn ? "End" : "Start"} Shift
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogTitle>
+            Are you want to {isClockedIn ? "end" : "start"} your shift?
+          </DialogTitle>
         </DialogHeader>
         <DialogFooter>
           <DialogTrigger>
