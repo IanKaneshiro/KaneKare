@@ -21,7 +21,7 @@ const DialogComponent = () => {
   const { user } = useUser();
 
   const [isClockedIn, setIsClockedIn] = useState<boolean | undefined>(
-    sessionStorage.getItem("isClockedIn") === "true" || undefined
+    undefined
   );
 
   useEffect(() => {
