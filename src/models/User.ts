@@ -13,13 +13,16 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  userType: {
+  email: {
     type: String,
-    required: true,
   },
-  payRate: {
+  salary: {
     type: Number,
-    required: true,
+    default: null,
+  },
+  createdAt: {
+    type: String,
+    default: new Date(),
   },
 });
 
