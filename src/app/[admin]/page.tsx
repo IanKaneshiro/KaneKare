@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import { auth } from "@clerk/nextjs/server";
 
 const AdminPage = () => {
+  const { userId, orgId, orgRole } = auth();
   return (
     <div>
       <div>
@@ -14,6 +16,9 @@ const AdminPage = () => {
       </div>
       <div>
         <h4>Actual page content. Need to move notes somewhere else maybe.</h4>
+        <p>userId {userId}</p>
+        <p>orgId {orgId}</p>
+        <p>orgRole {orgRole}</p>
       </div>
     </div>
   );
