@@ -55,9 +55,8 @@ export async function timePunch() {
 export async function getUsers() {
   //todo  get list of users. need user model
   try {
-    const data = await UserModel.find();
+    const data = await UserModel.find().lean();
     if (data) {
-      console.log("From getUsers action", data);
       return data;
     }
   } catch (e) {
