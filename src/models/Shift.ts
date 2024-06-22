@@ -7,16 +7,14 @@ const ShiftSchema = new mongoose.Schema({
   },
   startTime: {
     type: String,
-    require: true,
+    required: true,
   },
   endTime: {
     type: String,
     default: null,
   },
-  createdAt: {
-    type: String,
-    default: Date.now(),
-  },
 });
+
+ShiftSchema.set("timestamps", true);
 
 export default mongoose.models.Shift || mongoose.model("Shift", ShiftSchema);
