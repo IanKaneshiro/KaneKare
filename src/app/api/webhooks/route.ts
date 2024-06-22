@@ -3,8 +3,10 @@ import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import User from "@/models/User";
 
+// Need to run this command in the terminal for this to work "ngrok http --domain=sweeping-delicate-basilisk.ngrok-free.app 3000" in development
+// This allows the clerk webhook to send to a url that re-routes to the localhost
+
 export async function POST(req: Request) {
-  // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
@@ -27,17 +29,25 @@ export async function POST(req: Request) {
   }
 
   // Get the body
-  const payload = await req.json();
+  let payload;
+  try {
+    payload = await req.json();
+  } catch (error) {
+    console.error("Error parsing JSON payload:", error);
+    return new Response("Error parsing JSON payload", {
+      status: 400,
+    });
+  }
   const body = JSON.stringify(payload);
 
   // Create a new Svix instance with your secret.
-  const wh = new Webhook(WEBHOOK_SECRET);
+  const webhook = new Webhook(WEBHOOK_SECRET);
 
-  let evt: WebhookEvent;
+  let event: WebhookEvent;
 
   // Verify the payload with the headers
   try {
-    evt = wh.verify(body, {
+    event = webhook.verify(body, {
       "svix-id": svix_id,
       "svix-timestamp": svix_timestamp,
       "svix-signature": svix_signature,
@@ -49,33 +59,31 @@ export async function POST(req: Request) {
     });
   }
 
-  // Do something with the payload
-  // For this guide, you simply log the payload to the console
-  const { id } = evt.data;
-  const eventType = evt.type;
+  const eventType = event.type;
   switch (eventType) {
     case "user.created":
-      const user = new User({
-        id: evt.data.id,
-        firstName: evt.data.first_name,
-        lastName: evt.data.last_name,
-        email: evt.data.email_addresses.find(
-          (email) => email.id === evt.data.primary_email_address_id
-        )?.email_address,
-      });
       try {
+        const user = new User({
+          id: event.data.id,
+          firstName: event.data.first_name,
+          lastName: event.data.last_name,
+          email: event.data.email_addresses.find(
+            (email) => email.id === event.data.primary_email_address_id
+          )?.email_address,
+        });
         await user.save();
         return new Response("Success creating user", { status: 200 });
-      } catch (e) {
-        console.error("Error creating new user:", e);
-        return "Error creating new user";
+      } catch (error) {
+        console.error("Error creating new user:", error);
+        return new Response("Error creating new user", {
+          status: 500,
+        });
       }
-
+    // Add cases here for other events. e.g. 'user.updated'
     default:
-      break;
+      console.warn(`Unhandled event type: ${eventType}`);
+      return new Response("Unhandled event type", {
+        status: 400,
+      });
   }
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-  console.log("Webhook body:", body);
-
-  return new Response("", { status: 200 });
 }

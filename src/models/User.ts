@@ -7,11 +7,9 @@ const UserSchema = new mongoose.Schema({
   },
   firstName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
@@ -20,10 +18,8 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default: null,
   },
-  createdAt: {
-    type: String,
-    default: new Date(),
-  },
 });
+
+UserSchema.set("timestamps", true);
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
