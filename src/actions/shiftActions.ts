@@ -9,7 +9,6 @@ export async function clockIn(userId: string) {
     userId,
     startTime: new Date(),
     endTime: null,
-    createdAt: new Date(),
   });
   try {
     await shift.save();
@@ -73,6 +72,26 @@ export async function timePunch() {
     return {
       title: "Error",
       description: "An error occured while trying to record punch",
+    };
+  }
+}
+
+export async function allShifts(startDate: Date, endDate: Date) {
+  try {
+    const shifts = await ShiftModel.find({
+      createdAt: {
+        $gte: new Date(startDate),
+      },
+      updatedAt: {
+        $lte: new Date(endDate),
+      },
+    }).lean();
+
+    return JSON.parse(JSON.stringify(shifts));
+  } catch (error) {
+    return {
+      title: "Error",
+      description: "An error occured while trying to retrieve shifts",
     };
   }
 }

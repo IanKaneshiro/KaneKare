@@ -16,8 +16,8 @@ const NavBar = () => {
         </Link>
       </li>
       <li>
-        <Link href="/schedule">
-          <Button variant="outline">Schedule</Button>
+        <Link href="/payroll">
+          <Button variant="outline">Payroll</Button>
         </Link>
       </li>
       <li>
