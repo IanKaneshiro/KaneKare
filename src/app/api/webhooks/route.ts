@@ -3,9 +3,8 @@ import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import User from "@/models/User";
 
-// Need to run this command in the terminal for this to work "ngrok http --domain=sweeping-delicate-basilisk.ngrok-free.app 3000" in development
+// Need to run this command in the terminal for this to work "ngrok http --domain=polite-airedale-dominant.ngrok-free.app 3000" in development
 // This allows the clerk webhook to send to a url that re-routes to the localhost
-
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
@@ -60,6 +59,7 @@ export async function POST(req: Request) {
   }
 
   const eventType = event.type;
+
   switch (eventType) {
     case "user.created":
       try {
