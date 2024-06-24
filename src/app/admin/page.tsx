@@ -5,6 +5,8 @@ import { getUsers } from "@/actions/shiftActions";
 const AdminPage = () => {
   const { userId } = auth();
 
+  const users = getUsers();
+
   return (
     <div>
       <div>
@@ -26,6 +28,7 @@ const AdminPage = () => {
           But when I try to create a variable for it, it says it's something
           else in the tsx
         </p>
+        <p>is data array? {Array.isArray(users) ? "YAS" : "NO"}</p>
       </div>
     </div>
   );

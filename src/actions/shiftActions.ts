@@ -82,10 +82,11 @@ export async function timePunch() {
 export async function getUsers() {
   //todo  get list of users. need user model
   try {
-    const data = await UserModel.find(); //.lean();
+    const data = await UserModel.find();
     if (data) {
       //now when I console.log it says this is an array
-
+      console.log("data", data);
+      console.log("is Array?", Array.isArray(data));
       return data;
     }
   } catch (e) {
