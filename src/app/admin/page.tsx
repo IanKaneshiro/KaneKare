@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
 import { auth } from "@clerk/nextjs/server";
-import { getUsers } from "@/actions";
+import { getUsers } from "@/actions/shiftActions";
 
 const AdminPage = () => {
   const { userId } = auth();
-
-  const users = getUsers();
 
   return (
     <div>
@@ -20,12 +18,14 @@ const AdminPage = () => {
       </div>
       <div>
         <h4>Actual page content. Need to move notes somewhere else maybe.</h4>
-        <p>userId {userId}</p>
+
         <p>
-          Query from Clerk -- for whatever reason the mongoose doc is different
-          and will not allow me to iterate.
+          6.23
+          {""}
+          Now when I console.log whether the data is an array, it says it is.
+          But when I try to create a variable for it, it says it's something
+          else in the tsx
         </p>
-        <p>{users}</p>
       </div>
     </div>
   );

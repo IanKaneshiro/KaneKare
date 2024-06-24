@@ -2,6 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import ShiftModel from "@/models/Shift";
+import UserModel from "@/models/User";
 import { clerkClient } from "@clerk/nextjs/server";
 
 export async function clockIn(userId: string) {
@@ -81,27 +82,14 @@ export async function timePunch() {
 export async function getUsers() {
   //todo  get list of users. need user model
   try {
-    const data = await UserModel.find().lean();
+    const data = await UserModel.find(); //.lean();
     if (data) {
-      return { users: data };
+      //now when I console.log it says this is an array
+
+      return data;
     }
   } catch (e) {
     console.error("Error retreiving users:", e);
     return "Error retreiving users";
   }
-}
-
-export async function createUser() {
-  //todo  create new user
-  const user = new UserModel({
-    //dig more into how to create with mongodb
-  });
-}
-
-export async function editUser() {
-  //todo edit current user
-}
-
-export async function deleteUser() {
-  //todo removes a user
 }
