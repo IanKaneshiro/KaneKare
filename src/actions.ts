@@ -57,7 +57,7 @@ export async function getUsers() {
   try {
     const data = await UserModel.find().lean();
     if (data) {
-      return data;
+      return { users: data };
     }
   } catch (e) {
     console.error("Error retreiving users:", e);

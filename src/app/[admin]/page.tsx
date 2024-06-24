@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 import { auth } from "@clerk/nextjs/server";
 import { getUsers } from "@/actions";
-import UserModel from "@/models/User";
 
 const AdminPage = () => {
   const { userId } = auth();
 
-  const users = UserModel.find().lean();
+  const users = getUsers();
 
   return (
     <div>
@@ -26,6 +25,7 @@ const AdminPage = () => {
           Query from Clerk -- for whatever reason the mongoose doc is different
           and will not allow me to iterate.
         </p>
+        <p>{users}</p>
       </div>
     </div>
   );
