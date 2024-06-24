@@ -2,7 +2,7 @@
 
 import { auth } from "@clerk/nextjs/server";
 import ShiftModel from "@/models/Shift";
-import UserModel from "@/models/User";
+import { clerkClient } from "@clerk/nextjs/server";
 
 export async function clockIn(userId: string) {
   const shift = new ShiftModel({
@@ -13,6 +13,10 @@ export async function clockIn(userId: string) {
   });
   try {
     await shift.save();
+    await clerkClient.users.updateUserMetadata(userId, {
+      publicMetadata: { isClockedIn: true },
+    });
+
     return "Success!";
   } catch (e) {
     console.error("Error clocking in:", e);
@@ -24,6 +28,10 @@ export async function clockOut(shift: any) {
   shift.endTime = new Date();
   try {
     await shift.save();
+    await clerkClient.users.updateUserMetadata(shift.userId, {
+      publicMetadata: { isClockedIn: false },
+    });
+
     return "Success!";
   } catch (e) {
     console.error("Error clocking out:", e);
@@ -34,20 +42,38 @@ export async function clockOut(shift: any) {
 export async function timePunch() {
   const { userId } = auth();
   if (!userId) {
-    return "No user logged in";
+    return { title: "Error", description: "No user logged in" };
   }
   try {
     const data = await ShiftModel.findOne({ userId, endTime: null });
+
     if (data) {
       // clock out
-      return await clockOut(data);
+      await clockOut(data);
+      return {
+        timePunchMessage: {
+          title: "Successfuly Ended Shift",
+          description: `Time in: ${data.startTime}. Time out: ${data.endTime}`,
+        },
+        shiftStatus: false,
+      };
     } else {
       // clock in
-      return await clockIn(userId);
+      await clockIn(userId);
+      return {
+        timePunchMessage: {
+          title: "Success Started Shift",
+          description: `Time In: ${new Date()}`,
+        },
+        shiftStatus: true,
+      };
     }
   } catch (e) {
     console.error("Error during time punch:", e);
-    return "Error during time punch";
+    return {
+      title: "Error",
+      description: "An error occured while trying to record punch",
+    };
   }
 }
 

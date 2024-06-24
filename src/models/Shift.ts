@@ -13,10 +13,8 @@ const ShiftSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
-  createdAt: {
-    type: String,
-    default: Date.now(),
-  },
 });
+
+ShiftSchema.set("timestamps", true);
 
 export default mongoose.models.Shift || mongoose.model("Shift", ShiftSchema);

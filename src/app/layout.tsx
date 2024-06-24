@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
+
+import { Toaster } from "@/components/ui/toaster";
+import NavBar from "@/components/NavBar";
 
 import connectDB from "@/lib/connectDB";
 
@@ -24,19 +21,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   await connectDB();
+
   return (
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <header>
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
+          <NavBar />
           <main>{children}</main>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

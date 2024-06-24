@@ -12,3 +12,8 @@ export type Shift = {
   endTime: string | null;
   createdAt: string;
 };
+
+export type ToastMessage = {
+  title: string;
+  description: string;
+};
