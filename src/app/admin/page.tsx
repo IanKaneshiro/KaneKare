@@ -20,15 +20,6 @@ const AdminPage = () => {
       </div>
       <div>
         <h4>Actual page content. Need to move notes somewhere else maybe.</h4>
-
-        <p>
-          6.23
-          {""}
-          Now when I console.log whether the data is an array, it says it is.
-          But when I try to create a variable for it, it says it's something
-          else in the tsx
-        </p>
-        <p>is data array? {Array.isArray(users) ? "YAS" : "NO"}</p>
       </div>
     </div>
   );
