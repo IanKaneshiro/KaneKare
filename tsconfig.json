@@ -27,7 +27,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/components/CustomUserButton.js",
-    "src/app/api/webhooks/route.ts"
+    "src/app/api/webhooks/route.ts",
+    "src/app/error.js"
   ],
   "exclude": ["node_modules"]
 }

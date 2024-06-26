@@ -16,11 +16,9 @@ export async function clockIn(userId: string) {
     await clerkClient.users.updateUserMetadata(userId, {
       publicMetadata: { isClockedIn: true },
     });
-
     return "Success!";
   } catch (e) {
-    console.error("Error clocking in:", e);
-    return "Error clocking in";
+    throw new Error("failed to clock in");
   }
 }
 
@@ -31,11 +29,9 @@ export async function clockOut(shift: any) {
     await clerkClient.users.updateUserMetadata(shift.userId, {
       publicMetadata: { isClockedIn: false },
     });
-
     return "Success!";
   } catch (e) {
-    console.error("Error clocking out:", e);
-    return "Error clocking out";
+    throw new Error("failed to clock out");
   }
 }
 
@@ -69,10 +65,6 @@ export async function timePunch() {
       };
     }
   } catch (e) {
-    console.error("Error during time punch:", e);
-    return {
-      title: "Error",
-      description: "An error occured while trying to record punch",
-    };
+    throw new Error("failed to create time punch");
   }
 }
