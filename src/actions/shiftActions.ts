@@ -84,10 +84,7 @@ export async function getUsers() {
   try {
     const data = await UserModel.find();
     if (data) {
-      //now when I console.log it says this is an array
-      console.log("data", data);
-      console.log("is Array?", Array.isArray(data));
-      return data;
+      return await JSON.parse(JSON.stringify(data));
     }
   } catch (e) {
     console.error("Error retreiving users:", e);
