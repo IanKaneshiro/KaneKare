@@ -84,7 +84,7 @@ export async function getUsers() {
   try {
     const data = await UserModel.find();
     if (data) {
-      return await JSON.parse(JSON.stringify(data));
+      return JSON.parse(JSON.stringify(data));
     }
   } catch (e) {
     console.error("Error retreiving users:", e);

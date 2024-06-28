@@ -14,11 +14,6 @@ const AdminPage = () => {
       </div>
       <div>
         <h4>Actual page content. Need to move notes somewhere else maybe.</h4>
-        <p>
-          {users.map((user) => (
-            <li key={user._id}>{user.firstName}</li>
-          ))}
-        </p>
       </div>
     </div>
   );
