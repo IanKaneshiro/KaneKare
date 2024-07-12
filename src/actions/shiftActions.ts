@@ -80,7 +80,6 @@ export async function timePunch() {
 
 //admin
 export async function getUsers() {
-  //todo  get list of users. need user model
   try {
     const data = await UserModel.find();
     if (data) {
@@ -89,5 +88,18 @@ export async function getUsers() {
   } catch (e) {
     console.error("Error retreiving users:", e);
     return "Error retreiving users";
+  }
+}
+
+export async function getShifts() {
+  //todo get list of shifts so we can populate payroll
+  try {
+    const data = await ShiftModel.find();
+    if (data) {
+      return await JSON.parse(JSON.stringify(data));
+    }
+  } catch (e) {
+    console.error("Error retreiving shifts:", e);
+    return "Error retreiving shifts";
   }
 }

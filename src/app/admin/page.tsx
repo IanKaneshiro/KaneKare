@@ -1,8 +1,8 @@
-import { getUsers } from "@/actions/shiftActions";
-
+import { getUsers, getShifts } from "@/actions/shiftActions";
 
 const AdminPage = async () => {
   const usersList = await getUsers();
+  const shiftsList = await getShifts();
   return (
     <div>
       <div>
@@ -15,6 +15,11 @@ const AdminPage = async () => {
               {user.firstName}
               <div>{JSON.stringify(user)}</div>
             </li>
+          ))}
+        </ul>
+        <ul>
+          {usersList.map((shift: any) => (
+            <li key={shift._id}>bloop</li>
           ))}
         </ul>
       </div>
