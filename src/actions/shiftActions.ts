@@ -92,7 +92,6 @@ export async function getUsers() {
 }
 
 export async function getShifts() {
-  //todo get list of shifts so we can populate payroll
   try {
     const data = await ShiftModel.find();
     if (data) {
