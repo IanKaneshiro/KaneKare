@@ -29,7 +29,16 @@ const AdminPage = async () => {
       </div>
       <br></br>
       <br></br>
-      <PayrollSheet />
+      <p>Admin Payroll Calendar</p>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <ul>
+          {usersList.map((user: any) => (
+            <li key={user._id}>
+              <PayrollSheet user={user} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

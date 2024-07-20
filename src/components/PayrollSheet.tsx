@@ -8,12 +8,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const PayrollSheet = () => {
+const PayrollSheet = ({ user }: { user: any }) => {
   return (
-    <div style={{ display: "flex" }}>
-      <p>Admin Payroll Calendar</p>
-      <Table style={{ width: "90%" }}>
-        <TableCaption>A week's view of caregiver hours.</TableCaption>
+    <div>
+      <Table>
+        <TableCaption>User: {user.firstName}</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]"></TableHead>
@@ -98,8 +97,8 @@ const PayrollSheet = () => {
             <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
-            <TableCell>Total pay</TableCell>
             <TableCell>Total hours</TableCell>
+            <TableCell>Total pay</TableCell>
           </TableRow>
         </TableBody>
       </Table>
