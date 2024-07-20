@@ -1,13 +1,5 @@
 import { getUsers, getShifts } from "@/actions/shiftActions";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import PayrollSheet from "@/components/PayrollSheet";
 
 const AdminPage = async () => {
   const usersList = await getUsers();
@@ -28,103 +20,16 @@ const AdminPage = async () => {
         </p>
 
         <ul>
-          {usersList.map((user: any) => (
-            <li key={user._id}>{user.firstName}</li>
+          {shiftsList.map((shift: any) => (
+            <li key={shift._id}>
+              {shift.userId} --- {shift.startTime} --- {shift.endTime}
+            </li>
           ))}
         </ul>
       </div>
-      <div style={{ display: "flex" }}>
-        <p>Admin Payroll Calendar</p>
-        <Table style={{ width: "90%" }}>
-          <TableCaption>A week's view of caregiver hours.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]"></TableHead>
-              <TableHead>SUN</TableHead>
-              <TableHead>MON</TableHead>
-              <TableHead>TUES</TableHead>
-              <TableHead>WED</TableHead>
-              <TableHead>THUR</TableHead>
-              <TableHead>FRI</TableHead>
-              <TableHead>SAT</TableHead>
-              <TableHead></TableHead>
-              <TableHead className="text-right"></TableHead>
-            </TableRow>
-            <TableRow>
-              <TableHead></TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Date</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell className="font-medium">DAY</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>0.00</TableCell>
-              <TableCell>0.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">MID</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>0.00</TableCell>
-              <TableCell>0.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">NOC</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>0.00</TableCell>
-              <TableCell>0.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">OTHER</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>0.00</TableCell>
-              <TableCell>0.00</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className="font-medium">Hours</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>Total pay</TableCell>
-              <TableCell>Total hours</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
+      <br></br>
+      <br></br>
+      <PayrollSheet />
     </div>
   );
 };
