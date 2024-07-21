@@ -10,9 +10,8 @@ import {
 
 const PayrollSheet = ({ user }: { user: any }) => {
   return (
-    <div>
+    <div style={{ marginLeft: 80 }}>
       <Table>
-        <TableCaption>User: {user.firstName}</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]"></TableHead>

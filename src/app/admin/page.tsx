@@ -33,7 +33,13 @@ const AdminPage = async () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <ul>
           {usersList.map((user: any) => (
-            <li key={user._id}>
+            <li
+              key={user._id}
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <span style={{ color: "lightBlue", width: 50 }}>
+                {user.firstName}
+              </span>
               <PayrollSheet user={user} />
             </li>
           ))}
