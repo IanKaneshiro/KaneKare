@@ -17,9 +17,9 @@ const PayrollSheet = ({ user }: { user: any }) => {
             <TableHead className="w-[100px]"></TableHead>
             <TableHead>SUN</TableHead>
             <TableHead>MON</TableHead>
-            <TableHead>TUES</TableHead>
+            <TableHead>TUE</TableHead>
             <TableHead>WED</TableHead>
-            <TableHead>THUR</TableHead>
+            <TableHead>THU</TableHead>
             <TableHead>FRI</TableHead>
             <TableHead>SAT</TableHead>
             <TableHead></TableHead>
